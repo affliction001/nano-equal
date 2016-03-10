@@ -40,11 +40,11 @@ As well, nano-equal supports NaN values and working correctly with recursive str
 
 The list below is showing the performance comparison nano-equal with another libs:
 ```
-nanoEqual: 6557.878ms
-underscore: 7178.762ms
-nodejs: 10045.062ms
-shallow: 10940.088ms
-lodash: 11682.599ms
+nanoEqual: 6543.279ms
+underscore: 7452.143ms
+nodejs: 9872.526ms
+lodash: 10805.514ms
+shallow: 10857.361ms
 ```
 
 ### How to install it?

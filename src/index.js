@@ -88,10 +88,10 @@ function getType(a) {
     if (type === 'object') {
         if (!a) {
             type = 'null';
-        } else if (a instanceof Date) {
-            type = 'date';
         } else if (isArrayLike(a)) {
             type = 'array';
+        } else if (a instanceof Date) {
+            type = 'date';
         } else {
             type = 'object';
         }
