@@ -61,6 +61,11 @@ var recA2 = {}, recB2 = {};
 recA2.a = recA2;
 recB2.a = recA2;
 
+var recA3 = {}, recB3 = {};
+
+recA3.a = recB3;
+recB3.a = recA3;
+
 describe('Functional', function() {
     it('should working correctly', function() {
         nanoEqual(objA, objA).should.be.true;
@@ -69,5 +74,6 @@ describe('Functional', function() {
 
         nanoEqual(recA, recB).should.be.false;
         nanoEqual(recA2, recB2).should.be.true;
+        nanoEqual(recA3, recB3).should.be.false;
     });
 });

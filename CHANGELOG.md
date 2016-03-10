@@ -1,3 +1,6 @@
+# 1.0.2 / 2016-03-10
+    - fix recirsion object check
+
 # 1.0.1 / 2016-03-10
     - micro optimization
 

@@ -41,7 +41,7 @@ function eqObject(a, b) {
 
     if (aKeys.length === bKeys.length) {
         return aKeys.every(function(aKey) {
-            if (a[aKey] === a || b[aKey] === b) {
+            if ((a[aKey] === a || b[aKey] === b) || (a[aKey] === b || b[aKey] === a)) {
                 return a[aKey] === b[aKey];
             }
 
