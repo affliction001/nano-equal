@@ -39,10 +39,10 @@ function getType(a) {
     if (type === 'object') {
         if (a === null) {
             return 'null';
-        } else if (a.constructor === Object) {
-            return 'pure-object';
         } else if (isArrayLike(a)) {
             return 'array';
+        } else if (a.constructor === Object) {
+            return 'pure-object';
         }
 
         return 'object';
