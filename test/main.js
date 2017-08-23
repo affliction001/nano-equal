@@ -1,7 +1,5 @@
-var chai = require('chai'),
-    nanoEqual = require('../src/index');
-
-chai.should();
+var assert = require('chai').assert;
+var nanoEqual = require('../src/index');
 
 var objA = {
     nan: NaN,
@@ -12,7 +10,7 @@ var objA = {
         subProp1: 'sub value1',
         subProp2: {
             subSubProp1: 'sub sub value1',
-            subSubProp2: [1, 2, {prop2: 1, prop: 2}, 4, 5]
+            subSubProp2: [1, 2, { prop2: 1, prop: 2 }, 4, 5]
         }
     },
     prop5: 1000,
@@ -29,7 +27,7 @@ var objB = {
     prop4: {
         subProp2: {
             subSubProp1: 'sub sub value1',
-            subSubProp2: [1, 2, {prop2: 1, prop: 2}, 4, 5]
+            subSubProp2: [1, 2, { prop2: 1, prop: 2 }, 4, 5]
         },
         subProp1: 'sub value1'
     }
@@ -44,36 +42,39 @@ var objBWithAddProp = {
     prop4: {
         subProp2: {
             subSubProp1: 'sub sub value1',
-            subSubProp2: [1, 2, {prop2: 1, prop: 2}, 4, 5]
+            subSubProp2: [1, 2, { prop2: 1, prop: 2 }, 4, 5]
         },
         subProp1: 'sub value1'
     },
     addProp: ';('
 };
 
-var recA = {}, recB = {};
+var recA = {};
+var recB = {};
 
 recA.a = recA;
 recB.a = recB;
 
-var recA2 = {}, recB2 = {};
+var recA2 = {};
+var recB2 = {};
 
 recA2.a = recA2;
 recB2.a = recA2;
 
-var recA3 = {}, recB3 = {};
+var recA3 = {};
+var recB3 = {};
 
 recA3.a = recB3;
 recB3.a = recA3;
 
 describe('Functional', function() {
     it('should working correctly', function() {
-        nanoEqual(objA, objA).should.be.true;
-        nanoEqual(objA, objB).should.be.true;
-        nanoEqual(objA, objBWithAddProp).should.be.false;
+        assert.isTrue(nanoEqual(objA, objA));
+        assert.isTrue(nanoEqual(objA, objB));
+        assert.isFalse(nanoEqual(objA, objBWithAddProp));
 
-        nanoEqual(recA, recB).should.be.false;
-        nanoEqual(recA2, recB2).should.be.true;
-        nanoEqual(recA3, recB3).should.be.false;
+        assert.isFalse(nanoEqual(recA, recB));
+        assert.isTrue(nanoEqual(recA2, recB2));
+        assert.isFalse(nanoEqual(recA3, recB3));
     });
 });
