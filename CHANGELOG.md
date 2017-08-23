@@ -1,3 +1,7 @@
+## 2.0.1 (August 24, 2017)
+
+- fixed array-like comparison
+
 ## 2.0.0 (August 24, 2017)
 
 - performance improvements
