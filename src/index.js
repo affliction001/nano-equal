@@ -1,56 +1,7 @@
 /**
  * @licence
- * @author Sergey Melyukov 2016
+ * @author Sergey Melyukov @smelukov
  */
-
-/**
- * Is two arrays is equal?
- * The following of the elements are important!
- *
- * @param {Array} a
- * @param {Array} b
- *
- * @returns {boolean}
- */
-function eqArray(a, b) {
-    if (a.length === b.length) {
-        return a.every(function(val, key) {
-            return nanoEqual(val, b[key]);
-        });
-    }
-
-    return false;
-}
-
-/**
- * Is two objects is equal?
- * The following of the elements are not important!
- *
- * @param {Object} a
- * @param {Object} b
- *
- * @returns {boolean}
- */
-function eqObject(a, b) {
-    if (a === b) {
-        return true;
-    }
-
-    var aKeys = Object.keys(a),
-        bKeys = Object.keys(b);
-
-    if (aKeys.length === bKeys.length) {
-        return aKeys.every(function(aKey) {
-            if ((a[aKey] === a || b[aKey] === b) || (a[aKey] === b || b[aKey] === a)) {
-                return a[aKey] === b[aKey];
-            }
-
-            return b.hasOwnProperty(aKey) && nanoEqual(a[aKey], b[aKey]);
-        });
-    }
-
-    return false;
-}
 
 /**
  * Is value like array?
@@ -65,8 +16,8 @@ function isArrayLike(a) {
 
     var len = a.length;
 
-    if (typeof len === 'number' && len >= 0) {
-        if (len > 0) {
+    if (typeof len === 'number' && len > -1) {
+        if (len) {
             return 0 in a && len - 1 in a;
         }
 
@@ -86,15 +37,15 @@ function getType(a) {
     var type = typeof a;
 
     if (type === 'object') {
-        if (!a) {
-            type = 'null';
+        if (a === null) {
+            return 'null';
+        } else if (a.constructor === Object) {
+            return 'pure-object';
         } else if (isArrayLike(a)) {
-            type = 'array';
-        } else if (a instanceof Date) {
-            type = 'date';
-        } else {
-            type = 'object';
+            return 'array';
         }
+
+        return 'object';
     }
 
     return type;
@@ -108,39 +59,79 @@ function getType(a) {
  * @returns {boolean}
  */
 function nanoEqual(a, b) {
-    var typeA = getType(a),
-        typeB = getType(b);
+    if (a === b) {
+        return true;
+    }
+
+    // is nan
+    if (a !== a && b !== b) { // eslint-disable-line no-self-compare
+        return true;
+    }
+
+    var typeA = getType(a);
+    var typeB = getType(b);
 
     if (typeA !== typeB) {
         return false;
     }
 
-    switch (typeA) {
-        case 'object':
-        {
-            return eqObject(a, b);
+    if (typeA === 'pure-object') {
+        if (a === b) {
+            return true;
         }
 
-        case 'array':
-        {
-            return eqArray(a, b);
-        }
+        var keys = Object.keys(a);
 
-        case 'date':
-        {
-            return a.getTime() === b.getTime();
-        }
+        for (var i = 0, l = keys.length; i < l; i++) {
+            var key = keys[i];
 
-        default:
-        {
-            //nan
-            if (a !== a && b !== b) {
-                return true;
+            if (!b.hasOwnProperty(keys[i])) {
+                return false;
             }
 
-            return a === b;
+            var valA = a[key];
+            var valB = b[key];
+
+            // handle recursion
+            if (valA === a || valB === b || valA === b || valB === a) {
+                return valA === valB;
+            }
+
+            if (!nanoEqual(valA, valB)) {
+                return false;
+            }
+        }
+
+        return true;
+    } else if (typeA === 'array') {
+        if (a.length === b.length) {
+            for (var j = 0; j < a.length; j++) {
+                var elA = a[j];
+                var elB = b[j];
+
+                // handle recursion
+                if (elA === a || elB === b || elA === b || elB === a) {
+                    return elA === elB;
+                }
+
+                if (!nanoEqual(elA, elB)) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    } else if (typeA === 'object') {
+        if (a.valueOf !== Object.prototype.valueOf() && b.valueOf !== Object.prototype.valueOf()) {
+            return a.valueOf() === b.valueOf();
+        }
+
+        if (a.toString !== Object.prototype.toString() && b.toString !== Object.prototype.toString()) {
+            return a.toString() === b.toString();
         }
     }
+
+    return false;
 }
 
 module.exports = nanoEqual;
