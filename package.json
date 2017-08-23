@@ -1,14 +1,15 @@
 {
   "name": "nano-equal",
   "version": "1.0.2",
-  "description": "Simple and fast realization of deep equal",
+  "description": "Ultra fast and compact implementation of deep equal without any production dependencies.",
   "main": "src/index.js",
   "scripts": {
-    "test": "./node_modules/mocha/bin/mocha"
+    "lint": "eslint src",
+    "test": "npm run lint && ./node_modules/mocha/bin/mocha"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/smelukov/NanoEqual.git"
+    "url": "git+https://github.com/smelukov/nano-equal.git"
   },
   "keywords": [
     "equal",
@@ -17,26 +18,19 @@
   "author": "Sergey Melyukov",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/smelukov/NanoEqual/issues"
+    "url": "https://github.com/smelukov/nano-equal/issues"
   },
-  "homepage": "https://github.com/smelukov/NanoEqual#readme",
+  "homepage": "https://github.com/smelukov/nano-equal#readme",
   "devDependencies": {
     "chai": "^3.4.1",
-    "del": "^2.2.0",
-    "gulp": "^3.9.0",
-    "gulp-concat": "^2.6.0",
-    "gulp-eslint": "^1.1.1",
-    "gulp-header": "^1.7.1",
-    "gulp-jscs": "^3.0.2",
-    "gulp-jsdoc-to-markdown": "^1.2.1",
-    "gulp-mocha": "^2.2.0",
-    "gulp-util": "^3.0.7",
-    "jscs": "^2.8.0",
-    "lodash": "^4.6.1",
+    "eslint": "^4.5.0",
+    "lodash": "^4.17.4",
     "mocha": "^2.3.4",
-    "shallow-equal-fuzzy": "0.0.1",
-    "underscore": "^1.8.3",
-    "webpack": "^1.12.14",
-    "webpack-stream": "^3.1.0"
-  }
+    "underscore": "^1.8.3"
+  },
+  "files": [
+    "CHANGELOG.md",
+    "LICENSE.md",
+    "src/index.js"
+  ]
 }
