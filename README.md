@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/smelukov/NanoEqual.svg?branch=master)](https://travis-ci.org/smelukov/NanoEqual)
+[![npm version](https://badge.fury.io/js/nano-equal.svg)](https://badge.fury.io/js/nano-equal)
 
 ## NanoEqual
 Ultra fast and compact implementation of deep equal without any production dependencies.
@@ -25,7 +26,7 @@ If the values are an object (object, array, function), then comparing will be pe
 
 Following of the object properties is not important:
 ```javascript
-var a = {prop1: 'some', prop2: 'some'}''
+var a = {prop1: 'some', prop2: 'some'};
 var b = {prop2: 'some', prop1: 'some'};
 
 nanoEqual(a, b); // true
