@@ -1,9 +1,15 @@
-var nanoEqual = require('./../src'),
-    nodeEqual = require('assert').deepEqual,
-    shallowEqual = require('shallow-equal-fuzzy'),
-    lodashEqual = require('lodash').isEqual,
-    underscoreEqual = require('underscore').isEqual;
-
+var nanoEqual = require('./../src');
+var lodashEqual = require('lodash').isEqual;
+var underscoreEqual = require('underscore').isEqual;
+var assert = require('assert');
+var nodeEqual = function(a, b) {
+    try {
+        assert.deepEqual(a, b);
+        return true;
+    } catch (e) {
+        return false;
+    }
+};
 var objA = {
     prop1: 'value1',
     prop2: 'value2',
@@ -12,7 +18,7 @@ var objA = {
         subProp1: 'sub value1',
         subProp2: {
             subSubProp1: 'sub sub value1',
-            subSubProp2: [1, 2, {prop2: 1, prop: 2}, 4, 5]
+            subSubProp2: [1, 2, { prop2: 1, prop: 2 }, 4, 5]
         }
     },
     prop5: 1000,
@@ -28,35 +34,27 @@ var objB = {
     prop4: {
         subProp2: {
             subSubProp1: 'sub sub value1',
-            subSubProp2: [1, 2, {prop2: 1, prop: 2}, 4, 5]
+            subSubProp2: [1, 2, { prop2: 1, prop: 2 }, 4, 5]
         },
         subProp1: 'sub value1'
     }
 };
 
-function testEqual(name, fn, a, b, amount) {
-    try {
-        var _amount = amount || 1000000;
+function testEqual(name, fn, a, b) {
+    console.time(name);
 
-        console.time(name);
-
-        for (var i = 0; i < _amount; i++) {
-            var res = fn(a, b);
-
-            if (res !== undefined && !res) {
-                console.timeEnd(name);
-                throw new Error('not equal');
-            }
+    for (var i = 0; i < 1000000; i++) {
+        if (!fn(a, b)) {
+            console.timeEnd(name);
+            console.log('not equal');
+            return;
         }
-
-        console.timeEnd(name);
-    } catch (e) {
-        console.log(name + ':', e.message);
     }
+
+    console.timeEnd(name);
 }
 
 testEqual('nanoEqual', nanoEqual, objA, objB);
 testEqual('nodejs', nodeEqual, objA, objB);
-testEqual('shallow', shallowEqual, objA, objB);
 testEqual('lodash', lodashEqual, objA, objB);
 testEqual('underscore', underscoreEqual, objA, objB);
