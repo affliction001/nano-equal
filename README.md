@@ -1,62 +1,53 @@
 [![Build Status](https://travis-ci.org/smelukov/NanoEqual.svg?branch=master)](https://travis-ci.org/smelukov/NanoEqual)
 
-# NanoEqual
-Simple and fast realization of deep equal.
+## NanoEqual
+Ultra fast and compact implementation of deep equal without any production dependencies.
 
-### How to use it?
+### Usage
+```shell
+npm install nano-equal --save
+```
+
 ```javascript
 var nanoEqual = require('nano-equal');
 
-if(nanoEqual(a, b)) {
+if (nanoEqual(a, b)) {
     //....
 }
 ```
 
 ### What is that?
-This is a small and fast realization of deep equal, that supports CommonJS, AMD ang non-module definition.
+This is a compact and fast implementation of deep equal.
 
-Deep equal is an algorithm that comparing two values. If the values has a scalar types(string, bool, number), then comparing will be performed thru === operator.
+Deep equal is an algorithm that comparing two values. If the values are a scalar (string, bool, number), then comparing will be performed thru === operator.
 
-If the values has an object types(object, array, function), then comparing will be performed recursively.
+If the values are an object (object, array, function), then comparing will be performed recursively.
 
 Following of the object properties is not important:
 ```javascript
-var a = {prop1: 'some', prop2: 'some'},
-    b = {prop2: 'some', prop1: 'some'};
+var a = {prop1: 'some', prop2: 'some'}''
+var b = {prop2: 'some', prop1: 'some'};
 
-nanoEqual(a, b); //true
+nanoEqual(a, b); // true
 ```
 
 But following of the array elements is important:
 ```javascript
-var a = [1, 2, 3],
-    b = [3, 2, 1];
+var a = [1, 2, 3];
+var b = [3, 2, 1];
 
-nanoEqual(a, b); //false
+nanoEqual(a, b); // false
 ```
 
-As well, nano-equal supports NaN values and working correctly with recursive structures.
+> NaN values and some types of recursion are supported.
 
+### Benchmark
 
-The list below is showing the performance comparison nano-equal with another libs:
-```
-nanoEqual: 6543.279ms
-underscore: 7452.143ms
-nodejs: 9872.526ms
-lodash: 10805.514ms
-shallow: 10857.361ms
-```
+The list below is showing the performance comparison nano-equal with other libs:
 
-### How to install it?
-```shell
-npm install nano-equal --save
 ```
-or
-```shell
-bower install nano-equal --save
-```
-
-### How to build it?
-```shell
-gulp
+nanoEqual: 1362.813ms
+underscore: 3791.308ms
+lodash: 7830.107ms
+nodejs: 8272.956ms
 ```
