@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/smelukov/NanoEqual.svg?branch=master)](https://travis-ci.org/smelukov/NanoEqual)
+[![Build Status](https://travis-ci.org/smelukov/nano-equal.svg?branch=master)](https://travis-ci.org/smelukov/nano-equal)
 [![npm version](https://badge.fury.io/js/nano-equal.svg)](https://badge.fury.io/js/nano-equal)
 
 ## NanoEqual
