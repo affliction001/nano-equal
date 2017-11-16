@@ -80,12 +80,17 @@ function nanoEqual(a, b) {
             return true;
         }
 
-        var keys = Object.keys(a);
+        var keysA = Object.keys(a);
+        var keysBLength = Object.keys(b).length;
 
-        for (var i = 0, l = keys.length; i < l; i++) {
-            var key = keys[i];
+        if (keysA.length !== keysBLength) {
+            return false;
+        }
 
-            if (!b.hasOwnProperty(keys[i])) {
+        for (var i = 0, l = keysA.length; i < l; i++) {
+            var key = keysA[i];
+
+            if (!b.hasOwnProperty(keysA[i])) {
                 return false;
             }
 
