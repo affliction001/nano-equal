@@ -1,3 +1,7 @@
+## 2.0.2 (November 16, 2017)
+
+- fixed issue with different object keys length (#4)
+
 ## 2.0.1 (August 24, 2017)
 
 - fixed array-like comparison
